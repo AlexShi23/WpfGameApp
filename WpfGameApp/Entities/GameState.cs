@@ -5,18 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.Xml;
+using System.Windows.Forms;
 
 namespace WpfGameApp.Entities
 {
-    [XmlRoot(Namespace = "http://www.croc.ru", ElementName = "State")]
+    [XmlRoot(ElementName = "State")]
     public class GameState
     {
-        [XmlElement(ElementName = "Server")]
-        public Server[] Servers { get; set; }
+        [XmlElement(ElementName = "Entity")]
+        public List<Entity> Entities { get; set; }
 
         public GameState()
         {
-            Servers = new Server[7];
+            Entities = new List<Entity>();
         }
         public void Save(string name)
         {
@@ -43,6 +44,7 @@ namespace WpfGameApp.Entities
             }
             catch (Exception ex)
             {
+                MessageBox.Show($"Сохранение не удалось загрузить!\n{ex.Message}");
                 return new GameState();
             }
         }

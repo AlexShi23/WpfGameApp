@@ -43,7 +43,9 @@ namespace WpfGameApp.Entities
             get { return (Size == 0) ? 0 : 6 / Size; }
         }
 
-        [XmlAttribute()]
-        public string Image { get; set; }
+        public Server()
+        {
+            ImageUri = new Uri("Resources/server.png", UriKind.Relative);
+        }
     }
 }

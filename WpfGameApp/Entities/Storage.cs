@@ -7,31 +7,19 @@ using System.Xml.Serialization;
 
 namespace WpfGameApp.Entities
 {
-    public class Rack : Entity
+    class Storage : Entity
     {
         [XmlAttribute()]
-        /// <summary>
-        /// Наименование
-        /// </summary>
         public string Name { get; set; }
 
         [XmlAttribute()]
-        /// <summary>
-        /// Количество серверов
-        /// </summary>
-        public int Count { get; set; }
+        public int Size { get; set; }
 
         [XmlAttribute()]
-        /// <summary>
-        /// Нагрузка, кг
-        /// </summary>
-        public int Capacity { get; set; }
+        public int Weight { get; set; }
 
-        [XmlAttribute()]
-        /// <summary>
-        /// Стоимость
-        /// </summary>
         private int price;
+        [XmlAttribute()]
         public int Price
         {
             get
@@ -48,9 +36,9 @@ namespace WpfGameApp.Entities
             }
         }
 
-        public Rack()
+        public Storage()
         {
-            ImageUri = new Uri("Resources/rack.png", UriKind.Relative);
+            ImageUri = new Uri("Resources/storage.png", UriKind.Relative);
         }
     }
 }
