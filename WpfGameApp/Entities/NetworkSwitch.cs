@@ -18,24 +18,6 @@ namespace WpfGameApp.Entities
         [XmlAttribute()]
         public int Weight { get; set; }
 
-        private int price;
-        [XmlAttribute()]
-        public int Price
-        {
-            get
-            {
-                return price;
-            }
-            set
-            {
-                if (value < 0)
-                {
-                    throw new Exception("Цена не может быть отрицательной");
-                }
-                price = value;
-            }
-        }
-
         public NetworkSwitch()
         {
             ImageUri = new Uri("Resources/networkSwitch.png", UriKind.Relative);

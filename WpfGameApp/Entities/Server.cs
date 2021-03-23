@@ -18,23 +18,9 @@ namespace WpfGameApp.Entities
         public int CPUs { get; set; }
         [XmlAttribute()]
         public int Weight { get; set; }
-        public int price;
         [XmlAttribute()]
-        public int Price
-        {
-            get
-            {
-                return price;
-            }
-            set
-            {
-                if (value < 0)
-                {
-                    throw new Exception("Цена не может быть отрицательной");
-                }
-                price = value;
-            }
-        }
+        public int Storage { get; set; }
+
         [XmlAttribute()]
         public int Size { get; set; }
 

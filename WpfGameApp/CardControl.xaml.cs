@@ -166,5 +166,15 @@ namespace WpfGameApp
                     break;
             }
         }
+
+        private void card_DragEnter(object sender, DragEventArgs e)
+        {
+            border.Stroke = Brushes.LightCyan;
+        }
+
+        private void card_DragLeave(object sender, DragEventArgs e)
+        {
+            border.Stroke = Brushes.BlueViolet;
+        }
     }
 }

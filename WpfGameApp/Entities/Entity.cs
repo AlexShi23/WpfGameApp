@@ -14,6 +14,23 @@ namespace WpfGameApp.Entities
     [XmlInclude(typeof(Storage))]
     public abstract class Entity
     {
+        public int price;
+        [XmlAttribute()]
+        public int Price
+        {
+            get
+            {
+                return price;
+            }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new Exception("Цена не может быть отрицательной");
+                }
+                price = value;
+            }
+        }
         [XmlIgnore()]
         public Uri ImageUri { get; set; }
     }

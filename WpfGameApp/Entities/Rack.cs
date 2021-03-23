@@ -27,27 +27,6 @@ namespace WpfGameApp.Entities
         /// </summary>
         public int Capacity { get; set; }
 
-        [XmlAttribute()]
-        /// <summary>
-        /// Стоимость
-        /// </summary>
-        private int price;
-        public int Price
-        {
-            get
-            {
-                return price;
-            }
-            set
-            {
-                if (value < 0)
-                {
-                    throw new Exception("Цена не может быть отрицательной");
-                }
-                price = value;
-            }
-        }
-
         public Rack()
         {
             ImageUri = new Uri("Resources/rack.png", UriKind.Relative);

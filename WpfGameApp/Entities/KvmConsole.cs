@@ -15,25 +15,6 @@ namespace WpfGameApp.Entities
         public int Count { get; set; }
         [XmlAttribute()]
         public int Weight { get; set; }
-        [XmlAttribute()]
-
-        public int price;
-        [XmlAttribute()]
-        public int Price
-        {
-            get
-            {
-                return price;
-            }
-            set
-            {
-                if (value < 0)
-                {
-                    throw new Exception("Цена не может быть отрицательной");
-                }
-                price = value;
-            }
-        }
 
         public KvmConsole()
         {

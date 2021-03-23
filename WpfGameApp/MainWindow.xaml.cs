@@ -101,22 +101,22 @@ namespace WpfGameApp
         
         private void CreateCards()
         {
-            var server = new Entities.Server()
-            {
-                Name = "IBM 5300",
-                CPUs = 2,
-                Size = 1,
-                Weight = 10,
-                Price = 1100,
-            };
+            var db = new Database();
 
-            var serverCard = new CardControl()
+            int y = 80;
+            foreach (var server in db.GetServers())
             {
-                DataContext = server
-            };
-            Canvas.SetLeft(serverCard, 500);
-            Canvas.SetTop(serverCard, 80);
-            canvas.Children.Add(serverCard);
+                var serverCard = new CardControl()
+                {
+                    DataContext = server
+                };
+                Canvas.SetLeft(serverCard, 1000);
+                Canvas.SetTop(serverCard, y);
+                canvas.Children.Add(serverCard);
+                y += 100;
+            }
+
+            
 
             var rack = new Entities.Rack()
             {

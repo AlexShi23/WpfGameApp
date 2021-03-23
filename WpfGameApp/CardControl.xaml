@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WpfGameApp"
              mc:Ignorable="d" 
              d:DesignHeight="70" d:DesignWidth="220" DataContextChanged="CardControl_DataContextChanged" >
-    <Grid x:Name="card" Background="LightPink" Width="220" Height="70" MouseDown="grid_MouseDown" MouseMove="grid_MouseMove" Drop="card_Drop" DragOver="card_DragOver">
+    <Grid x:Name="card" Background="LightPink" Width="220" Height="70" MouseDown="grid_MouseDown" MouseMove="grid_MouseMove" Drop="card_Drop" DragOver="card_DragOver" DragEnter="card_DragEnter" DragLeave="card_DragLeave">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="70"/>
             <ColumnDefinition Width="*"/>
@@ -17,6 +17,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Rectangle x:Name="border" Grid.ColumnSpan="3" Grid.RowSpan="3" StrokeThickness="2" Stroke="BlueViolet"/>
         <Image x:Name="image" Source="{Binding Path=ImageUri}" HorizontalAlignment="Left" Height="70" Grid.RowSpan="3" VerticalAlignment="Top" Width="70"/>
         <TextBlock x:Name="property1" Grid.Column="1" Grid.Row="0"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
         <TextBlock x:Name="property2" Grid.Column="2" Grid.Row="0"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
