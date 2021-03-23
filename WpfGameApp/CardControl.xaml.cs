@@ -34,7 +34,6 @@ namespace WpfGameApp
                     card.Background = Brushes.Aquamarine;
             }
         }
-        private static bool isRackCardOnHold;
 
         private double dx;
         private double dy;
@@ -59,7 +58,6 @@ namespace WpfGameApp
             if (DataContext != null)
             {
                 data.SetData("Card", DataContext);
-                isRackCardOnHold = IsRackCard;
             }
             // Начало операци перетаскивания
             DragDrop.DoDragDrop((DependencyObject)sender, data, DragDropEffects.Copy);
@@ -75,11 +73,14 @@ namespace WpfGameApp
         private void card_DragOver(object sender, DragEventArgs e)
         {
             e.Effects = DragDropEffects.Copy;
-            if(IsRackCard && !isRackCardOnHold)
+            IDataObject data = e.Data;
+            object card = data.GetData("Card");
+
+            if (IsRackCard && !(card is Rack))
             {
                 e.Effects = DragDropEffects.None;
             }
-            else if (!IsRackCard && isRackCardOnHold)
+            else if (!IsRackCard && card is Rack)
             {
                 e.Effects = DragDropEffects.None;
             }
@@ -98,65 +99,71 @@ namespace WpfGameApp
 
         private void CardControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if(e.NewValue is Server)
+            switch (e.NewValue.GetType().Name)
             {
-                Server server = e.NewValue as Server;
-                card.Background = Brushes.LightCoral;
+                case nameof(Server):
+                    Server server = e.NewValue as Server;
+                    card.Background = Brushes.LightCoral;
 
-                property1.Text = server.Name;
-                property2.Text = $"{server.CPUs} CPU";
-                property3.Text = $"{server.Size}U";
-                property4.Text = $"{server.Weight} кг";
-                property5.Text = $"{server.Count} шт";
-                property6.Text = $"{server.Price} USD";
-            }
-            else if (e.NewValue is KvmConsole)
-            {
-                KvmConsole kvmConsole = e.NewValue as KvmConsole;
-                card.Background = Brushes.Bisque;
+                    property1.Text = server.Name;
+                    property2.Text = $"{server.CPUs} CPU";
+                    property3.Text = $"{server.Size}U";
+                    property4.Text = $"{server.Weight} кг";
+                    property5.Text = $"{server.Count} шт";
+                    property6.Text = $"{server.Price} USD";
+                    break;
 
-                property1.Text = kvmConsole.Name;
-                property2.Text = $"{kvmConsole.Weight} кг";
-                property3.Text = $"{kvmConsole.Count} шт";
-                property4.Text = $"{kvmConsole.Price} USD";
-                property5.Text = "";
-                property6.Text = "";
-            }
-            else if (e.NewValue is NetworkSwitch)
-            {
-                NetworkSwitch networkSwitch = e.NewValue as NetworkSwitch;
-                card.Background = Brushes.DarkKhaki;
+                case nameof(KvmConsole):
+                    KvmConsole kvmConsole = e.NewValue as KvmConsole;
+                    card.Background = Brushes.Bisque;
 
-                property1.Text = networkSwitch.Name;
-                property2.Text = $"{networkSwitch.Weight} кг";
-                property3.Text = $"{networkSwitch.Count} шт";
-                property4.Text = $"{networkSwitch.Price} USD";
-                property5.Text = "";
-                property6.Text = "";
-            }
-            else if (e.NewValue is Storage)
-            {
-                Storage storage = e.NewValue as Storage;
-                card.Background = Brushes.Tan;
+                    property1.Text = kvmConsole.Name;
+                    property2.Text = $"{kvmConsole.Weight} кг";
+                    property3.Text = $"{kvmConsole.Count} шт";
+                    property4.Text = $"{kvmConsole.Price} USD";
+                    property5.Text = "";
+                    property6.Text = "";
+                    break;
 
-                property1.Text = storage.Name;
-                property2.Text = $"{storage.Weight} кг";
-                property3.Text = $"{storage.Size} ТБ";
-                property4.Text = $"{storage.Price} USD";
-                property5.Text = "";
-                property6.Text = "";
-            }
-            else if (e.NewValue is Rack)
-            {
-                Rack rack = e.NewValue as Rack;
-                card.Background = Brushes.DimGray;
+                case nameof(NetworkSwitch):
+                    NetworkSwitch networkSwitch = e.NewValue as NetworkSwitch;
+                    card.Background = Brushes.DarkKhaki;
 
-                property1.Text = rack.Name;
-                property2.Text = $"{rack.Capacity} кг";
-                property3.Text = $"{rack.Count} шт";
-                property4.Text = $"{rack.Price} USD";
-                property5.Text = "";
-                property6.Text = "";
+                    property1.Text = networkSwitch.Name;
+                    property2.Text = $"{networkSwitch.Weight} кг";
+                    property3.Text = $"{networkSwitch.Count} шт";
+                    property4.Text = $"{networkSwitch.Price} USD";
+                    property5.Text = "";
+                    property6.Text = "";
+                    break;
+
+                case nameof(Storage):
+                    Storage storage = e.NewValue as Storage;
+                    card.Background = Brushes.Tan;
+
+                    property1.Text = storage.Name;
+                    property2.Text = $"{storage.Weight} кг";
+                    property3.Text = $"{storage.Size} ТБ";
+                    property4.Text = $"{storage.Price} USD";
+                    property5.Text = "";
+                    property6.Text = "";
+                    break;
+
+                case nameof(Rack):
+                    Rack rack = e.NewValue as Rack;
+                    card.Background = Brushes.DimGray;
+
+                    property1.Text = rack.Name;
+                    property2.Text = $"{rack.Capacity} кг";
+                    property3.Text = $"{rack.Count} шт";
+                    property4.Text = $"{rack.Price} USD";
+                    property5.Text = "";
+                    property6.Text = "";
+                    break;
+
+                default:
+                    // [?] 
+                    break;
             }
         }
     }
